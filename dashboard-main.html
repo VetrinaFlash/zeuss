@@ -136,6 +136,63 @@
       animation: fade-up 0.8s ease;
     }
 
+    .slide.has-image .slide-content {
+      align-items: stretch;
+    }
+
+    .slide.has-image .slide-text {
+      position: relative;
+      align-self: center;
+      max-width: 540px;
+      padding: 28px 30px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(3,3,3,0.58) 0%, rgba(3,3,3,0.80) 100%);
+      border: 1px solid rgba(201,168,76,0.18);
+      box-shadow: 0 28px 80px rgba(0,0,0,0.32);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .slide.has-image .slide-text.center {
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    .slide.no-image .slide-text,
+    .slide.video-slide .video-overlay {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      padding: 0;
+    }
+
+    .slide.has-image .slide-text::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0) 30%);
+      opacity: 0.9;
+    }
+
+    .subtitle .bullet-item,
+    .description .bullet-item {
+      display: inline-block;
+      white-space: normal;
+    }
+
+    .subtitle .bullet-item + .bullet-item::before,
+    .description .bullet-item + .bullet-item::before {
+      content: '•';
+      color: var(--gold);
+      margin: 0 10px 0 8px;
+      opacity: 0.9;
+    }
+
+
     .slide-image {
       flex: 1;
       display: flex;
@@ -172,7 +229,6 @@
       will-change: transform;
     }
     
-
     .slide-image.hidden {
       display: none !important;
     }
@@ -199,21 +255,51 @@
         flex-direction: column;
         gap: 20px;
         padding: 0;
+        align-items: stretch;
+        justify-content: flex-end;
+        min-height: calc(100vh - 110px);
       }
-      
+
       .slide-text {
-        text-align: center;
-        order: 1;
-        z-index: 15;
+        text-align: left;
+        order: 2;
+        z-index: 20;
+        width: 100%;
+        max-width: 100%;
+        margin-top: auto;
+        padding: 18px 16px 18px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background:
+          linear-gradient(180deg, rgba(0,0,0,0.74) 0%, rgba(0,0,0,0.88) 100%);
+        backdrop-filter: blur(14px) saturate(115%);
+        -webkit-backdrop-filter: blur(14px) saturate(115%);
+        border-radius: 18px;
+        box-shadow:
+          0 18px 50px rgba(0,0,0,0.45),
+          inset 0 1px 0 rgba(255,255,255,0.06);
       }
 
       .slide-text.center {
         text-align: center;
       }
 
+      .slide.has-image .slide-text::before {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: inherit;
+        pointer-events: none;
+        background: linear-gradient(135deg, rgba(201,168,76,0.18), rgba(255,255,255,0.02) 36%, rgba(201,168,76,0.08) 100%);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        -webkit-mask-composite: xor;
+        padding: 1px;
+      }
+
       .slide-image {
         width: 100%;
-        order: 2;
+        order: 1;
         position: fixed !important;
         inset: 0;
         flex: none;
@@ -223,7 +309,8 @@
       }
 
       .slide-image:not(.hidden) {
-        background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+        background:
+          linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.10) 30%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.82) 100%);
       }
 
       .slide-image img {
@@ -238,6 +325,7 @@
         border-radius: 0;
         box-shadow: none;
         z-index: 0;
+        filter: brightness(0.72) saturate(0.95) contrast(1.02);
       }
 
       .slide-image.hidden {
@@ -245,11 +333,34 @@
       }
 
       .slide h2 {
-        font-size: clamp(24px, 6vw, 36px);
+        font-size: clamp(24px, 7vw, 34px);
+        line-height: 1.02;
+        margin-bottom: 14px;
+        text-shadow: 0 3px 20px rgba(0,0,0,0.45);
+      }
+
+      .slide .subtitle {
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        line-height: 1.55;
+        margin-bottom: 14px;
       }
 
       .slide .description {
         font-size: 14px;
+        line-height: 1.55;
+        color: rgba(240,235,224,0.92);
+      }
+
+      .slide .divider {
+        width: 72px;
+        margin: 14px 0 16px;
+      }
+
+      .subtitle .bullet-item,
+      .description .bullet-item {
+        display: block;
+        margin: 0 0 6px 0;
       }
     }
 
@@ -296,23 +407,25 @@
 
     .slide .subtitle {
       font-family: var(--mono);
-      font-size: clamp(12px, 3vw, 14px);
-      color: var(--gold);
-      letter-spacing: 0.3em;
+      font-size: clamp(12px, 2.2vw, 14px);
+      color: rgba(230, 196, 103, 0.98);
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       animation: slide-in 0.8s ease 0.15s both;
       will-change: transform;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.32);
     }
 
     .slide .description {
-      font-size: clamp(15px, 4vw, 18px);
-      color: rgba(240,235,224,0.7);
-      line-height: 1.6;
-      margin: 20px 0;
-      font-weight: 300;
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(240,235,224,0.88);
+      line-height: 1.7;
+      margin: 18px 0 0;
+      font-weight: 400;
       animation: slide-in 0.8s ease 0.2s both;
       will-change: transform;
+      text-shadow: 0 1px 14px rgba(0,0,0,0.28);
     }
 
     .slide .quote {
@@ -714,9 +827,47 @@
 
   animateParticles();
 
+
+function renderTextBlock(textValue, className, tagName = 'div') {
+  if (!textValue) return '';
+  const safeText = String(textValue).trim();
+  if (!safeText) return '';
+  if (safeText.includes(' • ')) {
+    const items = safeText.split(' • ').map(item => item.trim()).filter(Boolean);
+    return `<div class="${className} ${className}--list">${items.map(item => `<span>${item}</span>`).join('')}</div>`;
+  }
+  return `<${tagName} class="${className}">${safeText}</${tagName}>`;
+}
+
   // Load slides with images and text content
   function loadSlides() {
     const wrapper = document.getElementById('slidesWrapper');
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function formatBulletText(value, className) {
+      if (!value) return '';
+      const parts = String(value)
+        .split('•')
+        .map(part => part.trim())
+        .filter(Boolean);
+
+      if (parts.length <= 1) {
+        return `<div class="${className}">${escapeHtml(value)}</div>`;
+      }
+
+      return `<div class="${className}">` +
+        parts.map(part => `<span class="bullet-item">${escapeHtml(part)}</span>`).join('') +
+      `</div>`;
+    }
+
     const slidesData = [
       {
         title: 'INTERCEPTOR',
@@ -838,14 +989,14 @@
     // Content slides with extracted text and associated images
     slidesData.forEach((content, index) => {
       const slide = document.createElement('div');
-      slide.className = 'slide';
 
       const hasImage = !!content.image;
+      slide.className = `slide ${hasImage ? 'has-image' : 'no-image'}`;
       const textClass = !hasImage || content.imagePos === 'hidden' ? 'slide-text center' : 'slide-text';
       const imageClass = hasImage ? `slide-image ${content.imagePos}` : 'slide-image hidden';
-      const subtitleHtml = content.subtitle ? `<div class="subtitle">${content.subtitle}</div>` : '';
+      const subtitleHtml = content.subtitle ? formatBulletText(content.subtitle, 'subtitle') : '';
       const dividerHtml = (content.subtitle || content.description) ? '<div class="divider"></div>' : '';
-      const descriptionHtml = content.description ? `<p class="description">${content.description}</p>` : '';
+      const descriptionHtml = content.description ? formatBulletText(content.description, 'description') : '';
       const imageHtml = hasImage ? `<img src="${content.image}" alt="Slide ${index + 1}" loading="lazy">` : '';
 
       slide.innerHTML = `
